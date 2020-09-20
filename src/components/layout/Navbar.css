@@ -1,0 +1,119 @@
+nav {
+  width: 100%;
+  z-index: 999;
+  background: var(--dark-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.7rem 2rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  height: 8vh;
+}
+
+.logo-container {
+  flex: 3;
+  display: flex;
+  color: var(--light-font-color);
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.burger {
+  display: none;
+  cursor: pointer;
+}
+
+.burger div {
+  width: 2.5rem;
+  height: 0.3rem;
+  background-color: var(--light-font-color);
+  margin: 0.5rem;
+  transition: transform 0.3s ease-in-out;
+}
+
+.burger:hover div {
+  background-color: #d1d1d1;
+}
+
+.burger.toggled .line1 {
+  transform: rotate(-45deg) translate(-0.5rem, 0.6rem);
+}
+
+.burger.toggled .line2 {
+  opacity: 0;
+}
+
+.burger.toggled .line3 {
+  transform: rotate(45deg) translate(-0.5rem, -0.6rem);
+}
+
+.nav-links {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: fit-content;
+}
+
+.nav-link {
+  font-size: 2rem;
+  color: var(--light-font-color);
+  list-style: none;
+  cursor: pointer;
+  margin-left: 4rem;
+  min-width: fit-content;
+}
+
+nav a {
+  color: var(--light-font-color);
+  text-decoration: none;
+}
+
+nav a:hover,
+nav a:active {
+  color: #d1d1d1;
+}
+
+/* Media queries */
+
+@media screen and (max-width: 768px) {
+  .burger {
+    display: block;
+  }
+
+  nav {
+    display: block;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 8vh;
+    left: 0;
+    width: 100%;
+    z-index: 900;
+    background: #575757;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem 0;
+    transform: scale(1, 0);
+    transform-origin: top;
+    transition: transform 0.4s ease-in-out;
+  }
+
+  .nav-links.toggled {
+    transform: scale(1, 1);
+  }
+
+  .nav-link {
+    margin: 1rem 2rem;
+    opacity: 0;
+    transition: opacity 150ms ease-in-out;
+  }
+
+  .nav-links.toggled .nav-link {
+    opacity: 1;
+    transition: opacity 250ms ease-in-out 250ms;
+  }
+}

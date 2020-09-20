@@ -1,0 +1,135 @@
+.flex-container {
+  display: flex;
+  width: 100%;
+}
+
+/* Input autocomplate */
+
+.autocomplate-suggestions {
+  position: absolute;
+  top: 3.8rem;
+  left: 0;
+  right: 0;
+  background-color: #f9f9f9;
+  border: 1px solid var(--primary-color);
+  border-top: none;
+}
+
+.autocomplate-suggestions li {
+  padding: 0.6rem 1.2rem;
+  font-size: 1.5rem;
+}
+
+.autocomplate-suggestions li:nth-child(odd) {
+  background-color: #dbb9a163;
+}
+
+/* Selected ingredients */
+
+.ingredients-container {
+  background: #535353;
+  background: linear-gradient(
+    90deg,
+    var(--dark-color) 0%,
+    #a1a1a1 30%,
+    #afafaf 45%,
+    #a1a1a1 65%,
+    var(--dark-color) 100%
+  );
+  margin: 3rem 2rem 0 0;
+  padding: 5rem 3rem 0 3rem;
+  min-height: 100vh;
+  animation: to-right 1s ease-in-out;
+  border-radius: 10px;
+  min-width: 30rem;
+  max-width: 35rem;
+  flex: 1;
+}
+
+.ingredients {
+  position: sticky;
+  top: 5rem;
+  left: 5rem;
+  height: 35rem;
+  padding: 2rem 1.5rem;
+  background-color: #f5dbb4;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ingredient-list {
+  margin: 1rem 0;
+}
+.ingredient-list h3 {
+  color: var(--dark-font-color);
+}
+
+.ingredients .remove-all-btn {
+  margin-top: 1rem;
+}
+
+.ingredient {
+  font-family: "Marck Script", cursive;
+  font-size: 2rem;
+  margin-top: 1rem;
+  border-bottom: 1px dotted #000000;
+  display: flex;
+  justify-content: space-between;
+}
+
+.ingredient button {
+  margin-bottom: 0.5rem;
+}
+
+.ingredient i {
+  color: #00804b;
+  font-size: 1.4rem;
+}
+
+@keyframes to-right {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+/* Media queries */
+
+@media screen and (max-width: 900px) {
+  .flex-container {
+    flex-direction: column;
+  }
+
+  .ingredients-container {
+    width: 100%;
+    max-width: 100%;
+    min-height: auto;
+    margin: 2rem 2rem 0 0;
+    padding: 2rem;
+    box-shadow: none;
+    animation: none;
+    border-radius: 0;
+  }
+
+  .ingredients {
+    position: static;
+    min-height: 5rem;
+    height: auto;
+    box-shadow: none;
+  }
+
+  .ingredient {
+    display: inline-block;
+    font-family: "Marck Script", cursive;
+    font-size: 2rem;
+    margin-top: 1rem;
+    border-bottom: 1px dotted rgb(0, 0, 0);
+    display: flex;
+    justify-content: space-between;
+  }
+}
