@@ -13,13 +13,7 @@ import {
   CLEAR_RECIPES,
 } from "./types";
 
-let apiKey = "";
-
-if (process.env.NODE_ENV !== "production") {
-  apiKey = process.env.REACT_APP_API_KEY;
-} else {
-  apiKey = process.env.REACT_APP_API_KEY;
-}
+let apiKey = process.env.REACT_APP_API_KEY;
 
 const RecipeState = props => {
   const initialState = {

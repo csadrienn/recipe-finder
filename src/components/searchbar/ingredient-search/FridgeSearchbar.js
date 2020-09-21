@@ -4,13 +4,7 @@ import Autocomplates from "./Autocomplates";
 import Alert from "../../layout/Alert";
 import axios from "axios";
 
-let apiKey = "";
-
-if (process.env.NODE_ENV !== "production") {
-  apiKey = process.env.REACT_APP_API_KEY;
-} else {
-  apiKey = process.env.REACT_APP_API_KEY;
-}
+let apiKey = process.env.REACT_APP_API_KEY;
 
 const FridgeSearchbar = () => {
   const recipeContext = useContext(RecipeContext);
