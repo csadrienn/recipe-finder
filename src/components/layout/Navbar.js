@@ -10,7 +10,7 @@ const Navbar = () => {
   return (
     <nav>
       <div className="logo-container">
-        <Link to="/" className="logo">
+        <Link to="/" className="logo" onClick={onClick}>
           <h1>Recipe Finder</h1>
         </Link>
         <div className={`burger${burgerClicked ? " toggled" : ""}`} onClick={onClick}>
@@ -22,13 +22,19 @@ const Navbar = () => {
 
       <ul className={`nav-links${burgerClicked ? " toggled" : ""}`}>
         <li className="nav-link">
-          <Link to="/">Search</Link>
+          <Link to="/" onClick={onClick}>
+            Search
+          </Link>
         </li>
         <li className="nav-link">
-          <Link to="/fridge">What's in your fridge?</Link>
+          <Link to="/fridge" onClick={onClick}>
+            What's in your fridge?
+          </Link>
         </li>
         <li className="nav-link">
-          <Link to="/about">About</Link>
+          <Link to="/about" onClick={onClick}>
+            About
+          </Link>
         </li>
       </ul>
     </nav>

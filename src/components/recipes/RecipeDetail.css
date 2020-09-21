@@ -223,8 +223,18 @@
     padding: 0;
   }
 
+  .instructions {
+    margin-top: 2rem;
+  }
+
   .back-btn,
   .back-btn:visited {
     width: 100%;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .info {
+    min-width: 20rem;
   }
 }

@@ -41,10 +41,11 @@ const Searchbar = () => {
                 value={input}
                 onChange={onChange}
               />
+              <button type="submit" className="btn">
+                <i className="fas fa-search" />
+              </button>
             </div>
-            <button type="submit" className="btn">
-              <i className="fas fa-search" />
-            </button>
+
             {text.length > 0 && (
               <div className="sep-btn">
                 <button type="button" className="btn" onClick={toggleFilter}>

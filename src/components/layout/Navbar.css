@@ -117,3 +117,9 @@ nav a:active {
     transition: opacity 250ms ease-in-out 250ms;
   }
 }
+
+@media screen and (max-width: 300px) {
+  h1 {
+    font-size: 2.6rem;
+  }
+}

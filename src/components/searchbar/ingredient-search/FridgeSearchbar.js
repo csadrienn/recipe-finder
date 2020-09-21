@@ -111,10 +111,10 @@ const FridgeSearchbar = () => {
                   onClick={handleAutoComplateOnClick}
                 />
               )}
+              <button type="submit" className="btn">
+                <i className="fas fa-search" />
+              </button>
             </div>
-            <button type="submit" className="btn">
-              <i className="fas fa-search" />
-            </button>
           </div>
         </div>
         {alert && <Alert />}
