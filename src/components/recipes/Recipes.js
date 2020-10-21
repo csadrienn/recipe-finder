@@ -8,7 +8,7 @@ let pathName = "";
 
 const Recipes = ({ path }) => {
   const recipeContext = useContext(RecipeContext);
-  const { text, loading, recipes } = recipeContext;
+  const { text, loading, recipes, error } = recipeContext;
 
   //Clear the repices if arrives from a different search path
   useEffect(() => {
@@ -22,16 +22,40 @@ const Recipes = ({ path }) => {
   if (loading) {
     return <Spinner />;
   } else {
-    if (recipes.length > 0) {
+    if (!error) {
+      if (recipes.length > 0) {
+        return (
+          <div className="recipes">
+            {recipes.map(recipe => (
+              <RecipeItem key={recipe.id} recipe={recipe} path={path} />
+            ))}
+          </div>
+        );
+      } else {
+        return (
+          <div>
+            {text.length > 0 && (
+              <h3 style={{ margin: "2rem auto", textAlign: "center" }}>No results..."{text}"</h3>
+            )}
+          </div>
+        );
+      }
+    } else {
       return (
-        <div className="recipes">
-          {recipes.map(recipe => (
-            <RecipeItem key={recipe.id} recipe={recipe} path={path} />
-          ))}
+        <div>
+          <h1
+            style={{
+              margin: "4rem auto 0",
+              color: "#e97666",
+              textAlign: "center",
+            }}
+          >
+            {error.status}
+          </h1>
+          <h3 style={{ margin: "1rem auto", textAlign: "center" }}>Something went wrong...</h3>
+          <p style={{ margin: "1rem auto", textAlign: "center" }}>{error.data.message}</p>
         </div>
       );
-    } else {
-      return <div>{text.length > 0 && <h3 className="mt-2">No results..."{text}"</h3>}</div>;
     }
   }
 };

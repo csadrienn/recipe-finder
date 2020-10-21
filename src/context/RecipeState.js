@@ -26,6 +26,7 @@ const RecipeState = props => {
     selectedIngredients: [],
     loading: false,
     alert: null,
+    error: null,
   };
 
   const [state, dispatch] = useReducer(RecipeReducer, initialState);
@@ -33,13 +34,20 @@ const RecipeState = props => {
   // Search Recipes
   const searchRecipes = async text => {
     setLoading();
-    const res = await axios.get(
-      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&query=${text}&number=20`
-    );
+    let error = null;
+    let results = [];
+    try {
+      const res = await axios.get(
+        `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&query=${text}&number=20`
+      );
+      results = res.data.results;
+    } catch (err) {
+      error = err.response;
+    }
 
     dispatch({
       type: SEARCH_RECIPES,
-      payload: { results: res.data.results, text },
+      payload: { results, text, error },
     });
   };
 
@@ -58,35 +66,59 @@ const RecipeState = props => {
       }
     });
 
-    const res = await axios.get(url);
+    let error = null;
+    let results = [];
+    try {
+      const res = await axios.get(url);
+      results = res.data.results;
+    } catch (err) {
+      error = err.response;
+    }
 
     dispatch({
       type: UPDATE_RECIPES,
-      payload: res.data.results,
+      payload: { results, error },
     });
   };
 
   //Get detailed recipe
   const getRecipe = async id => {
     setLoading();
-    const res = await axios.get(
-      `https://api.spoonacular.com/recipes/${id}/information?apiKey=${apiKey}&includeNutrition=false`
-    );
+    let error = null;
+    let recipe = {};
+    let recipeDietInfo = [];
+    let steps = [];
+    let ingredients = [];
 
-    const regex = /<\s*b>|<\s*\/b>|<\s*a[^>]*>|<\s*\/a>/g;
-    const rec = res.data;
-    rec.summary = rec.summary.replace(regex, "");
-    const method =
-      rec.analyzedInstructions && rec.analyzedInstructions.length > 0
-        ? rec.analyzedInstructions[0].steps
-        : [];
+    try {
+      const res = await axios.get(
+        `https://api.spoonacular.com/recipes/${id}/information?apiKey=${apiKey}&includeNutrition=false`
+      );
+
+      const regex = /<\s*b>|<\s*\/b>|<\s*a[^>]*>|<\s*\/a>/g;
+      const rec = res.data;
+      rec.summary = rec.summary.replace(regex, "");
+      const method =
+        rec.analyzedInstructions && rec.analyzedInstructions.length > 0
+          ? rec.analyzedInstructions[0].steps
+          : [];
+
+      recipe = rec;
+      recipeDietInfo = rec.diets;
+      steps = method;
+      ingredients = rec.extendedIngredients;
+    } catch (err) {
+      error = err.response;
+    }
+
     dispatch({
       type: GET_RECIPE,
       payload: {
-        recipe: rec,
-        recipeDietInfo: rec.diets,
-        steps: method,
-        ingredients: rec.extendedIngredients,
+        recipe,
+        recipeDietInfo,
+        steps,
+        ingredients,
+        error,
       },
     });
   };
@@ -102,17 +134,22 @@ const RecipeState = props => {
       newIngredients.push(input);
     }
 
+    let error = null;
     let data = [];
     if (newIngredients.length > 0) {
       let ingText = newIngredients.join(",+");
       const url = `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${apiKey}&ranking=1&ingredients=${ingText}&number=15`;
-      const res = await axios.get(url);
-      data = res.data;
+      try {
+        const res = await axios.get(url);
+        data = res.data;
+      } catch (err) {
+        error = err.response;
+      }
     }
 
     dispatch({
       type: SEARCH_BY_INGREDIENTS,
-      payload: { selectedIngredients: newIngredients, recipes: data },
+      payload: { selectedIngredients: newIngredients, recipes: data, error },
     });
   };
 
@@ -141,6 +178,7 @@ const RecipeState = props => {
         selectedIngredients: state.selectedIngredients,
         loading: state.loading,
         alert: state.alert,
+        error: state.error,
         searchRecipes,
         setLoading,
         getRecipe,

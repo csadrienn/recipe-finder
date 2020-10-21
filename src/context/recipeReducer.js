@@ -17,12 +17,14 @@ export default (state, action) => {
         ...state,
         recipes: action.payload.results,
         text: action.payload.text,
+        error: action.payload.error,
         loading: false,
       };
     case UPDATE_RECIPES:
       return {
         ...state,
-        recipes: action.payload,
+        recipes: action.payload.results,
+        error: action.payload.error,
         loading: false,
       };
     case GET_RECIPE:
@@ -32,6 +34,7 @@ export default (state, action) => {
         recipeDietInfo: action.payload.recipeDietInfo,
         steps: action.payload.steps,
         ingredients: action.payload.ingredients,
+        error: action.payload.error,
         loading: false,
       };
 
@@ -45,6 +48,7 @@ export default (state, action) => {
         ...state,
         recipes: action.payload.recipes,
         selectedIngredients: action.payload.selectedIngredients,
+        error: action.payload.error,
         loading: false,
       };
 
